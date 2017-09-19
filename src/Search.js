@@ -41,28 +41,28 @@ class Search extends React.Component {
             <div className="search-books-results">
               <ol className="books-grid">
                {this.state.searchResult.map((result)=> (
-              <li key={result.id}>
+                <li key={result.id}>
                  <div className="book">
                    <div className="book-top">
                      <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+ result.imageLinks.thumbnail +')' }}></div>
                      <div className="book-shelf-changer">
-                       <select value={result.shelf}>
-                         <option value="none" disabled>Move to...</option>
+                       <select defaultValue={result.shelf}>
+                         <option defaultValue="none" disabled>Move to...</option>
                          {(result.shelf === "currentlyReading") ? 
-                           (<option value="currentlyReading"> Currently Reading &#10003;</option>)
-                           : (<option value="currentlyReading"> Currently Reading</option>)
+                           (<option defaultValue="currentlyReading"> Currently Reading &#10003;</option>)
+                           : (<option defaultValue="currentlyReading"> Currently Reading</option>)
                          }
                          {(result.shelf === "wantToRead") ? 
-                           (<option value="wantToRead"> Want to Read &#10003;</option>)
-                           : (<option value="wantToRead"> Want to Read </option>)
+                           (<option defaultValue="wantToRead"> Want to Read &#10003;</option>)
+                           : (<option defaultValue="wantToRead"> Want to Read </option>)
                          }
                          {(result.shelf === "read") ? 
-                           (<option value="read"> Read &#10003;</option>)
-                           : (<option value="read"> Read</option>)
+                           (<option defaultValue="read"> Read &#10003;</option>)
+                           : (<option defaultValue="read"> Read</option>)
                          }
                          {(result.shelf === undefined) ? 
-                           (<option value="none"> None &#10003;</option>)
-                           : (<option value="none"> None</option>)
+                           (<option defaultValue="none"> None &#10003;</option>)
+                           : (<option defaultValue="none"> None</option>)
                          }
                        </select>
                      </div>
