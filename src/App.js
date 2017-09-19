@@ -25,6 +25,19 @@ class BooksApp extends React.Component {
 
   }
 
+  changeBookShelf = (event)=>{
+    const selectedShelf = event.target.value;
+    const id = event.target.id;
+    BooksAPI.update({id: id}, selectedShelf)
+    .then(()=>{
+      BooksAPI.getAll().then((response)=>{
+        this.setState({
+          myBookShelf: response
+        });
+      });
+    });
+  }
+
   render() {
     return (
       <div className="app">
@@ -50,23 +63,23 @@ class BooksApp extends React.Component {
                          <div className="book-top">
                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+ result.imageLinks.thumbnail +')' }}></div>
                            <div className="book-shelf-changer">
-                             <select defaultValue={result.shelf}>
-                               <option defaultValue="none" disabled>Move to...</option>
+                             <select id={result.id} onChange={this.changeBookShelf} value={result.shelf}>
+                               <option value="none" disabled>Move to...</option>
                                {(result.shelf === "currentlyReading") ? 
-                                 (<option defaultValue="currentlyReading"> Currently Reading &#10003;</option>)
-                                 : (<option defaultValue="currentlyReading"> Currently Reading</option>)
+                                 (<option value="currentlyReading"> Currently Reading &#10003;</option>)
+                                 : (<option value="currentlyReading"> Currently Reading</option>)
                                }
                                {(result.shelf === "wantToRead") ? 
-                                 (<option defaultValue="wantToRead"> Want to Read &#10003;</option>)
-                                 : (<option defaultValue="wantToRead"> Want to Read </option>)
+                                 (<option value="wantToRead"> Want to Read &#10003;</option>)
+                                 : (<option value="wantToRead"> Want to Read </option>)
                                }
                                {(result.shelf === "read") ? 
-                                 (<option defaultValue="read"> Read &#10003;</option>)
-                                 : (<option defaultValue="read"> Read</option>)
+                                 (<option value="read"> Read &#10003;</option>)
+                                 : (<option value="read"> Read</option>)
                                }
                                {(result.shelf === undefined) ? 
-                                 (<option defaultValue="none"> None &#10003;</option>)
-                                 : (<option defaultValue="none"> None</option>)
+                                 (<option value="none"> None &#10003;</option>)
+                                 : (<option value="none"> None</option>)
                                }
                              </select>
                            </div>
@@ -90,23 +103,23 @@ class BooksApp extends React.Component {
                          <div className="book-top">
                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+ result.imageLinks.thumbnail +')' }}></div>
                            <div className="book-shelf-changer">
-                             <select defaultValue={result.shelf}>
-                               <option defaultValue="none" disabled>Move to...</option>
+                             <select id={result.id} onChange={this.changeBookShelf} value={result.shelf}>
+                               <option value="none" disabled>Move to...</option>
                                {(result.shelf === "currentlyReading") ? 
-                                 (<option defaultValue="currentlyReading"> Currently Reading &#10003;</option>)
-                                 : (<option defaultValue="currentlyReading"> Currently Reading</option>)
+                                 (<option value="currentlyReading"> Currently Reading &#10003;</option>)
+                                 : (<option value="currentlyReading"> Currently Reading</option>)
                                }
                                {(result.shelf === "wantToRead") ? 
-                                 (<option defaultValue="wantToRead"> Want to Read &#10003;</option>)
-                                 : (<option defaultValue="wantToRead"> Want to Read </option>)
+                                 (<option value="wantToRead"> Want to Read &#10003;</option>)
+                                 : (<option value="wantToRead"> Want to Read </option>)
                                }
                                {(result.shelf === "read") ? 
-                                 (<option defaultValue="read"> Read &#10003;</option>)
-                                 : (<option defaultValue="read"> Read</option>)
+                                 (<option value="read"> Read &#10003;</option>)
+                                 : (<option value="read"> Read</option>)
                                }
                                {(result.shelf === undefined) ? 
-                                 (<option defaultValue="none"> None &#10003;</option>)
-                                 : (<option defaultValue="none"> None</option>)
+                                 (<option value="none"> None &#10003;</option>)
+                                 : (<option value="none"> None</option>)
                                }
                              </select>
                            </div>
@@ -130,23 +143,23 @@ class BooksApp extends React.Component {
                          <div className="book-top">
                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+ result.imageLinks.thumbnail +')' }}></div>
                            <div className="book-shelf-changer">
-                             <select defaultValue={result.shelf}>
-                               <option defaultValue="none" disabled>Move to...</option>
+                             <select id={result.id} onChange={this.changeBookShelf} value={result.shelf}>
+                               <option value="none" disabled>Move to...</option>
                                {(result.shelf === "currentlyReading") ? 
-                                 (<option defaultValue="currentlyReading"> Currently Reading &#10003;</option>)
-                                 : (<option defaultValue="currentlyReading"> Currently Reading</option>)
+                                 (<option value="currentlyReading"> Currently Reading &#10003;</option>)
+                                 : (<option value="currentlyReading"> Currently Reading</option>)
                                }
                                {(result.shelf === "wantToRead") ? 
-                                 (<option defaultValue="wantToRead"> Want to Read &#10003;</option>)
-                                 : (<option defaultValue="wantToRead"> Want to Read </option>)
+                                 (<option value="wantToRead"> Want to Read &#10003;</option>)
+                                 : (<option value="wantToRead"> Want to Read </option>)
                                }
                                {(result.shelf === "read") ? 
-                                 (<option defaultValue="read"> Read &#10003;</option>)
-                                 : (<option defaultValue="read"> Read</option>)
+                                 (<option value="read"> Read &#10003;</option>)
+                                 : (<option value="read"> Read</option>)
                                }
                                {(result.shelf === undefined) ? 
-                                 (<option defaultValue="none"> None &#10003;</option>)
-                                 : (<option defaultValue="none"> None</option>)
+                                 (<option value="none"> None &#10003;</option>)
+                                 : (<option value="none"> None</option>)
                                }
                              </select>
                            </div>
