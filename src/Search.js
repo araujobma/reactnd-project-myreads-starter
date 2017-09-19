@@ -13,7 +13,6 @@ class Search extends React.Component {
   searchBook = (event)=>{
     
     BooksAPI.search(event.target.value ,20).then((response)=>{
-      console.log(response);
       this.setState({
         searchResult: response
       });
@@ -49,10 +48,22 @@ class Search extends React.Component {
                      <div className="book-shelf-changer">
                        <select value={result.shelf}>
                          <option value="none" disabled>Move to...</option>
-                         <option value="currentlyReading">Currently Reading </option>
-                         <option value="wantToRead">Want to Read </option>
-                         <option value="read">Read </option>
-                         <option value="none">None </option>
+                         {(result.shelf === "currentlyReading") ? 
+                           (<option value="currentlyReading"> Currently Reading &#10003;</option>)
+                           : (<option value="currentlyReading"> Currently Reading</option>)
+                         }
+                         {(result.shelf === "wantToRead") ? 
+                           (<option value="wantToRead"> Want to Read &#10003;</option>)
+                           : (<option value="wantToRead"> Want to Read </option>)
+                         }
+                         {(result.shelf === "read") ? 
+                           (<option value="read"> Read &#10003;</option>)
+                           : (<option value="read"> Read</option>)
+                         }
+                         {(result.shelf === undefined) ? 
+                           (<option value="none"> None &#10003;</option>)
+                           : (<option value="none"> None</option>)
+                         }
                        </select>
                      </div>
                    </div>
