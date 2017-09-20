@@ -7,20 +7,53 @@ import * as BooksAPI from './BooksAPI'
 
 class Search extends React.Component {
   state ={
-    searchResult: []
+    searchResult: [],
   }
 
+    
+
   searchBook = (event)=>{
-    
-    BooksAPI.search(event.target.value ,20).then((response)=>{
-      this.setState({
-        searchResult: response
+
+    if(event.target.value !== ""){
+      BooksAPI.search(event.target.value ,20).then((results)=>{
+        let idxBookFound;
+        this.props.myBookShelf.forEach((book)=>{
+          idxBookFound = results.findIndex((result)=>(result.id === book.id))
+          if(idxBookFound !== -1){
+            results[idxBookFound] = book;
+          }
+          
+        });
+        this.setState({
+          searchResult: results
+        });
       });
-    });
-    
-    
-       
+    }
   }
+
+  componentWillReceiveProps(nextProps){
+   let idxBookFound;
+   let results = this.state.searchResult;
+   nextProps.myBookShelf.forEach((book)=>{
+     idxBookFound = results.findIndex((result)=>(result.id === book.id))
+     if(idxBookFound !== -1){
+       results[idxBookFound] = book;
+     }
+        
+   });
+   
+   this.setState({
+    searchResult: results
+   });
+      
+    
+  }
+
+
+  
+  
+
+
 
   render(){
     return(
@@ -46,23 +79,23 @@ class Search extends React.Component {
                    <div className="book-top">
                      <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+ result.imageLinks.thumbnail +')' }}></div>
                      <div className="book-shelf-changer">
-                       <select defaultValue={result.shelf}>
-                         <option defaultValue="none" disabled>Move to...</option>
+                       <select id={result.id} onChange={this.props.changeBookShelf} value={result.shelf}>
+                         <option value="none" disabled>Move to...</option>
                          {(result.shelf === "currentlyReading") ? 
-                           (<option defaultValue="currentlyReading"> Currently Reading &#10003;</option>)
-                           : (<option defaultValue="currentlyReading"> Currently Reading</option>)
+                           (<option value="currentlyReading"> Currently Reading &#10003;</option>)
+                           : (<option value="currentlyReading"> Currently Reading</option>)
                          }
                          {(result.shelf === "wantToRead") ? 
-                           (<option defaultValue="wantToRead"> Want to Read &#10003;</option>)
-                           : (<option defaultValue="wantToRead"> Want to Read </option>)
+                           (<option value="wantToRead"> Want to Read &#10003;</option>)
+                           : (<option value="wantToRead"> Want to Read </option>)
                          }
                          {(result.shelf === "read") ? 
-                           (<option defaultValue="read"> Read &#10003;</option>)
-                           : (<option defaultValue="read"> Read</option>)
+                           (<option value="read"> Read &#10003;</option>)
+                           : (<option value="read"> Read</option>)
                          }
                          {(result.shelf === undefined) ? 
-                           (<option defaultValue="none"> None &#10003;</option>)
-                           : (<option defaultValue="none"> None</option>)
+                           (<option value="none"> None &#10003;</option>)
+                           : (<option value="none"> None</option>)
                          }
                        </select>
                      </div>
