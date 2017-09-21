@@ -9,7 +9,17 @@ class Book extends React.Component {
     return(
      <div className="book">
       <div className="book-top">
-        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+ this.props.book.imageLinks.thumbnail +')' }}></div>
+        { this.props.book.imageLinks ?       
+          <div className="book-cover" 
+           style={{ width: 128, height: 193,
+           backgroundImage: 'url('+ this.props.book.imageLinks.thumbnail +')' }}>
+          </div>
+        : <div className="book-cover" 
+           style={{ width: 128, height: 193,
+           backgroundImage: 'url(http://via.placeholder.com/128x193?text=NoCover)' }}>
+          </div>
+
+        }
         <div className="book-shelf-changer">
           <select id={this.props.book.id} 
            onChange={this.props.changeBookShelf}
