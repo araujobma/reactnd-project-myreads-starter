@@ -26,20 +26,32 @@ class Search extends React.Component {
       });
     }else{
       BooksAPI.search(event.target.value ,20).then((results)=>{
-        let idxBookFound;
-        this.props.myBookShelf.forEach((book)=>{
-          idxBookFound = results.findIndex((result)=>(result.id === book.id))
-          if(idxBookFound !== -1){
-            results[idxBookFound] = book;
-          }
+        try{
+        if (results.length > 0){
+          let idxBookFound;
+          this.props.myBookShelf.forEach((book)=>{
+            idxBookFound = results.findIndex((result)=>(result.id === book.id))
+            if(idxBookFound !== -1){
+              results[idxBookFound] = book;
+            }
           
-        });
-        if(this.state.searchTerm !== ""){
-          this.setState({
-            searchResult: results
           });
+          if(this.state.searchTerm !== ""){
+            this.setState({
+              searchResult: results
+            });
+          }
+        }else{
+          if(this.state.searchTerm !== ""){
+            this.setState({
+              searchResult: results
+            });
+          }
         }
-        
+        }catch(err){
+          this.setState({searchResult: []});
+        }
+       
 
       });
 
