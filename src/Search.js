@@ -9,13 +9,22 @@ import * as BooksAPI from './BooksAPI'
 class Search extends React.Component {
   state ={
     searchResult: [],
+    searchTerm: ""
   }
 
     
 
   searchBook = (event)=>{
-
-    if(event.target.value !== ""){
+    this.setState({
+      searchTerm: event.target.value
+    });
+    
+    
+    if(event.target.value === ""){
+        this.setState({
+        searchResult: [] 
+      });
+    }else{
       BooksAPI.search(event.target.value ,20).then((results)=>{
         let idxBookFound;
         this.props.myBookShelf.forEach((book)=>{
@@ -25,11 +34,17 @@ class Search extends React.Component {
           }
           
         });
-        this.setState({
-          searchResult: results
-        });
+        if(this.state.searchTerm !== ""){
+          this.setState({
+            searchResult: results
+          });
+        }
+        
+
       });
-    }
+
+    }  
+
   }
 
   componentWillReceiveProps(nextProps){
@@ -68,7 +83,8 @@ class Search extends React.Component {
               <div className="search-books-input-wrapper">
                 
                 <input type="text" placeholder="Search by title or author"
-                onChange={this.searchBook}/>
+                 value={this.state.searchTerm}
+                 onChange={this.searchBook}/>
                 
               </div>
             </div>
